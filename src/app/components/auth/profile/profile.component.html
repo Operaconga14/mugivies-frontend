@@ -1,0 +1,472 @@
+<!-- Profile 1 - Bootstrap Brain Component -->
+<section class=" py-3 py-md-5 py-xl-8 mb-5">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+                <h2 class="mb-4 display-5 text-center">Profile</h2>
+                <p class="text-secondary text-center lead fs-4 mb-5">The Profile page is your digital hub, where you can
+                    fine-tune your experience. Here's a closer look at the settings you can expect to find in your
+                    profile page.</p>
+                <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row gy-4 gy-lg-0">
+            <div class="col-12 col-lg-4 col-xl-3">
+                <div class="row gy-4">
+                    <div class="col-12">
+                        <div class="card widget-card border-dark shadow-sm">
+                            <div class="card-header text-bg-dark">Welcome, {{user_details.name}}</div>
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <img [src]="user_details.picture" [alt]="user_details.name" height="250" width="250"
+                                        class=" image-fluid rounded-circle">
+                                </div>
+                                <h5 class="text-center mb-1">{{user_details.name}}</h5>
+                                <p class="text-center text-secondary mb-4">{{user_details.role}}</p>
+                                <ul class="list-group list-group-flush mb-4">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0">Events Posted</h6>
+                                        <span>{{eventNumber}}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0">Gigs Posted</h6>
+                                        <span>{{gigNumber}}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0">Services Posted</h6>
+                                        <span>{{serviceNumber}}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0">Vacancies Posted</h6>
+                                        <span>{{vacancyNumber}}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0">Gadgets Posted</h6>
+                                        <span>{{gadgetNumber}}</span>
+                                    </li>
+                                </ul>
+                                <div class="d-grid m-0">
+                                    <button class="btn btn-outline-dark" type="button"
+                                        (click)="showCreateOptionModal()">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card widget-card border-light shadow-sm">
+                            <div class="card-header text-bg-dark">Social Accounts</div>
+                            <div class="card-body h3">
+                                <div class="d-flex justify-content-start">
+                                    <p class="mx-2" *ngIf="user_details.facebook">
+                                        <a href='{{user_details.facebook}}' target="_blank"><i
+                                                class="bi-facebook bi text-primary"></i></a>
+                                    </p>
+                                    <p class="mx-2" *ngIf="user_details.instagram">
+                                        <a href="{{user_details.instagram}}" target="_blank"><i
+                                                class="bi-instagram bi text-danger"></i></a>
+                                    </p>
+                                    <p class="mx-2" *ngIf="user_details.twitter">
+                                        <a href="{{user_details.twitter}}" target="_blank"><i
+                                                class="bi-twitter bi text-primary"></i></a>
+                                    </p>
+
+                                    <!-- <p class="mx-2" *ngIf="user_details.linkedin">
+                                        <a href="{{user_details.linkedin}}" target="_blank"><i
+                                                class="bi-linkedin bi text-primary"></i></a>
+                                    </p> -->
+                                    <p class="mx-2" *ngIf="user_details.youtube">
+                                        <a href="{{user_details.youtube}}" target="_blank"><i
+                                                class="bi-youtube bi text-danger"></i></a>
+                                    </p>
+                                    <p class="mx-2" *ngIf="user_details.tiktok">
+                                        <a href="{{user_details.tiktok}}" target="_blank"><i
+                                                class="bi-tiktok bi text-primary"></i></a>
+                                    </p>
+                                    <p class="mx-2" *ngIf="user_details.applemusic">
+                                        <a href="{{user_details.applemusic}}" target="_blank"><i
+                                                class="bi-music-note-beamed bi text-danger"></i></a>
+                                    </p>
+                                    <p class="mx-2" *ngIf="user_details.audiomack">
+                                        <a href="{{user_details.audiomack}}" target="_blank"><i
+                                                class="bi-activity bi text-warning"></i></a>
+                                    </p>
+                                    <p class="mx-2" *ngIf="user_details.boomplay">
+                                        <a href="{{user_details.boomplay}}" target="_blank"><i
+                                                class="bi-currency-bitcoin bi text-primary"></i></a>
+                                    </p>
+                                    <p class="mx-2" *ngIf="user_details.spotify">
+                                        <a href="{{user_details.spotify}}" target="_blank"><i
+                                                class="bi-spotify bi text-success"></i></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card widget-card border-dark shadow-sm">
+                            <div class="card-header text-bg-dark">Awards</div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush mb-0">
+                                    <li class="list-group-item d-flex">
+                                        <h6><i class="bi-mortarboard"></i></h6>
+                                        <h6 class="ms-3">{{user_details.awards}}</h6>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-8 col-xl-9">
+                <div class="card widget-card border-light shadow-sm">
+                    <div class="card-body p-4">
+                        <ul class="nav nav-tabs" id="profileTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab"
+                                    data-bs-target="#overview-tab-pane" type="button" role="tab"
+                                    aria-controls="overview-tab-pane" aria-selected="true">Overview</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                    aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="email-tab" data-bs-toggle="tab"
+                                    data-bs-target="#email-tab-pane" type="button" role="tab"
+                                    aria-controls="email-tab-pane" aria-selected="false">Other</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="password-tab" data-bs-toggle="tab"
+                                    data-bs-target="#password-tab-pane" type="button" role="tab"
+                                    aria-controls="password-tab-pane" aria-selected="false">Password</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-4" id="profileTabContent">
+                            <div class="tab-pane fade show active" id="overview-tab-pane" role="tabpanel"
+                                aria-labelledby="overview-tab" tabindex="0">
+                                <h5 class="mb-3">About</h5>
+                                <p class="lead mb-3">{{user_details.bio}}</p>
+                                <h5 class="mb-3">Profile</h5>
+                                <div class="row g-0">
+                                    <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
+                                        <div class="p-2">Full Name</div>
+                                    </div>
+                                    <div
+                                        class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
+                                        <div class="p-2">{{user_details.name}}</div>
+                                    </div>
+                                    <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
+                                        <div class="p-2">Role</div>
+                                    </div>
+                                    <div
+                                        class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
+                                        <div class="p-2">{{user_details.role}}</div>
+                                    </div>
+                                    <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
+                                        <div class="p-2">Country</div>
+                                    </div>
+                                    <div
+                                        class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
+                                        <div class="p-2">{{user_details.location}}</div>
+                                    </div>
+                                    <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
+                                        <div class="p-2">Username</div>
+                                    </div>
+                                    <div
+                                        class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
+                                        <div class="p-2">{{user_details.username}}</div>
+                                    </div>
+                                    <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
+                                        <div class="p-2">Genre</div>
+                                    </div>
+                                    <div
+                                        class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
+                                        <div class="p-2">{{user_details.genre}}</div>
+                                    </div>
+                                    <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
+                                        <div class="p-2">Phone</div>
+                                    </div>
+                                    <div
+                                        class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
+                                        <div class="p-2">{{user_details.contact}}</div>
+                                    </div>
+                                    <div class="col-5 col-md-3 bg-light border-bottom border-white border-3">
+                                        <div class="p-2">Email</div>
+                                    </div>
+                                    <div
+                                        class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3">
+                                        <div class="p-2">{{user_details.email}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel"
+                                aria-labelledby="profile-tab" tabindex="0">
+                                <app-edit-profile></app-edit-profile>
+                            </div>
+                            <div class="tab-pane fade" id="email-tab-pane" role="tabpanel" aria-labelledby="email-tab"
+                                tabindex="0">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn btn-primary mt-4" (click)="logout()">Log
+                                                Out</button>
+                                            <button type="button" class="btn btn-danger mt-4"
+                                                (click)="deleteAccount()">Delete
+                                                Account</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="password-tab-pane" role="tabpanel"
+                                aria-labelledby="password-tab" tabindex="0">
+                            <app-change-password></app-change-password>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View short details of created post  -->
+    <div class="mt-4">
+        <p class="h3 fw-bold text-center">Created Gigs</p>
+        @if (!myGigs || myGigs == 0) {
+        <h1 class="text-center">You have not created a gig yet</h1>
+        }
+        @if (myGigs) {
+        <p class="text-center">Please make sure you delete expired gigg to avoid confusion and other people reaplying
+        </p>
+        <ul class="list-group mx-1" *ngFor="let gig of myGigs">
+            <li class="list-item p-0 m-0 my-2">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between">
+                        <p>{{gig.title}}</p>
+                        <p>{{gig.date | date: dateTimeService.formatedDAte }}</p>
+                        <p>{{gig.time | timeFormat}}</p>
+                        <!-- <button class="btn-transparent btn border-0"><i class="bi bi-three-dots-vertical"></i></button> -->
+                        <div ngbDropdown>
+                            <button class="btn-transparent btn border-0 btn-sm" ngbDropdownToggle><i
+                                    class="bi bi-three-dots-vertical"></i></button>
+                            <div ngbDropdownMenu>
+                                <button ngbDropdownItem (click)="getGigDetail(gig.id)">View</button>
+                                <!-- <button ngbDropdownItem>Edit</button> -->
+                                <div ngbDropdown>
+                                    <button class="ms-1 btn-outline-transparent btn border-0" ngbDropdownToggle>
+                                        Edit
+                                    </button>
+                                    <div ngbDropdownMenu class="p-0">
+                                        <div class="fullscreen-dropdown border-3 border rounded">
+                                            <form class="px-4 py-3" [formGroup]="updateGigForm"
+                                                (ngSubmit)="updateGig(gig.id)">
+                                                <p class="h3 text-center fw-bold">Update Gig</p>
+                                                <div class="row mt-5">
+                                                    <!-- First colunm -->
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                                        <div class="form-group mb-2">
+                                                            <label for="type">Type</label>
+                                                            <input type="text" name="type"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="type">
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="contact">Contact</label>
+                                                            <input type="text" name="contact"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="contact">
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Second colunm -->
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="instruments">Instrument(s)</label>
+                                                            <input type="text" name="instruments"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="instruments">
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="location">Location</label>
+                                                            <input type="text" name="location"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="location">
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="price">Price</label>
+                                                            <input type="text" name="price"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="price">
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="time">Time</label>
+                                                            <input type="time" name="time"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="time">
+                                                        </div>
+
+                                                        <!-- name field -->
+                                                        <div class="form-group mb-2">
+                                                            <label for="date">Date</label>
+                                                            <input type="date" name="date"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="date">
+                                                        </div>
+                                                    </div>
+                                                    <!-- name field -->
+                                                    <div class="form-group mb-2">
+                                                        <label for="description">Description</label>
+                                                        <textarea name="description" formControlName="description"
+                                                            class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class=" button mt-3 d-flex justify-content-between">
+                                                    <button class="form-rounded btn-secondary btn"
+                                                        type="submit">Update</button>
+                                                    <!-- <button class="form-rounded btn-outline-secondary btn"
+                                                        type="button">Cancel</button> -->
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <button ngbDropdownItem (click)="deleteGig(gig.id)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        }
+
+    </div>
+
+    <!-- View short details of created post  -->
+    <div class="mt-4">
+        <p class="h3 fw-bold text-center">Created Vacancies</p>
+        @if (!myVacancy || myVacancy == 0) {
+        <h1 class="text-center">You have not created any vacancy yet</h1>
+        }
+        @if (myVacancy) {
+        <p class="text-center">Please make sure you delete expired vacancies to avoid confusion and other people
+            reaplying</p>
+        <ul class="list-group mx-1">
+            <li class="list-item p-0 m-0 my-2" *ngFor="let vacancy of myVacancy">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between">
+                        <p>{{vacancy.title}}</p>
+                        <p>{{vacancy.date | date: dateTimeService.formatedDAte}}</p>
+                        <p>{{vacancy.deadline | date: dateTimeService.formatedDAte}}</p>
+                        <!-- <button class="btn-transparent btn border-0"><i class="bi bi-three-dots-vertical"></i></button> -->
+                        <div ngbDropdown>
+                            <button class="btn-transparent btn border-0 btn-sm" ngbDropdownToggle><i
+                                    class="bi bi-three-dots-vertical"></i></button>
+                            <div ngbDropdownMenu>
+                                <button ngbDropdownItem (click)="getvacancyDetail(vacancy.id)">View</button>
+                                <!-- <button ngbDropdownItem>Edit</button> -->
+                                <div ngbDropdown>
+                                    <button class="ms-1 btn-outline-transparent btn border-0" ngbDropdownToggle>
+                                        Edit
+                                    </button>
+                                    <div ngbDropdownMenu class="p-0">
+                                        <div class="fullscreen-dropdown border-3 border rounded">
+                                            <form class="px-4 py-3" [formGroup]="updateVacancyForm" (ngSubmit)="updateVacancy(vacancy.id)"
+                                                >
+                                                <p class="h3 text-center fw-bold">Update Vacancy</p>
+                                                <div class="row mt-5">
+                                                    <!-- First colunm -->
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                                        <div class="form-group mb-2">
+                                                            <label for="type">Type</label>
+                                                            <input type="text" name="type"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="type">
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="contact">Contact</label>
+                                                            <input type="text" name="contact"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="contact">
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Second colunm -->
+                                                    <div class="col-sm-12 col-md-12 col-lg-12">
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="instruments">Instrument(s)</label>
+                                                            <input type="text" name="instruments"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="instruments">
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="location">Location</label>
+                                                            <input type="text" name="location"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="location">
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="price">Price</label>
+                                                            <input type="text" name="price"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="price">
+                                                        </div>
+
+                                                        <div class="form-group mb-2">
+                                                            <label for="time">Time</label>
+                                                            <input type="time" name="time"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="time">
+                                                        </div>
+
+                                                        <!-- name field -->
+                                                        <div class="form-group mb-2">
+                                                            <label for="date">Date</label>
+                                                            <input type="date" name="date"
+                                                                class="form-control form-rounded bg-transparent"
+                                                                formControlName="date">
+                                                        </div>
+                                                    </div>
+                                                    <!-- name field -->
+                                                    <div class="form-group mb-2">
+                                                        <label for="description">Description</label>
+                                                        <textarea name="description" formControlName="description"
+                                                            class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class=" button mt-3 d-flex justify-content-between">
+                                                    <button class="form-rounded btn-secondary btn"
+                                                        type="submit">Update</button>
+                                                    <!-- <button class="form-rounded btn-outline-secondary btn"
+                                                        type="button">Cancel</button> -->
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <button ngbDropdownItem>Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        }
+    </div>
+
+</section>
