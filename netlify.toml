@@ -1,0 +1,11 @@
+[build]
+  # Use pnpm to build
+  command = "pnpm build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "20"   # or your Node version
+  PNPM_HOME = "/opt/buildhome/.pnpm"
