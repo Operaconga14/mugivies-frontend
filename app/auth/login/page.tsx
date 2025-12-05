@@ -13,7 +13,7 @@ export default function Login() {
     formData.get("email");
     formData.get("password");
     await login(formData);
-    router.push("/dashboard/profile");
+    router.push("/dashboard/overview");
   };
 
   return (
