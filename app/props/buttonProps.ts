@@ -1,6 +1,6 @@
 export interface ButtonProps {
   text?: string;
   classname?: string;
-  type: any;
+  type: "button" | "submit" | "reset";
   onClick?: () => void;
 }
