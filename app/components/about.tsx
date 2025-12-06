@@ -1,13 +1,10 @@
 export default function About({ id }: { id: string }) {
   return (
-    <section
-      id={id}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-900/60 to-pink-900/60"
-    >
-      <h2 className="text-center text-5xl font-bold text-gray-100 mb-10">
+    <section id={id} className="py-20 px-4 sm:px-6 lg:px-8">
+      <h2 className="text-center text-6xl font-bold text-gray-600 mb-10">
         About Us
       </h2>
-      <p className="text-center text-gray-100 text-md">
+      <p className="text-start max-w-2xl mx-auto text-gray-500 text-lg">
         Mugivies: Your All-In-One Music Hub Ever wondered where musicians and
         music lovers truly connect? Mugivies is that place. It’s a vibrant
         community where you can find your next gig, meet talented bandmates, or

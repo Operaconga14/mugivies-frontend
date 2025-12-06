@@ -1,7 +1,7 @@
 import { upcomingEvents, recentGigs, stats } from "@/app/variables/nav";
 export default function Overview() {
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className=" text-white">
       {/* Main Content */}
       <div className="">
         {/* Top Header */}

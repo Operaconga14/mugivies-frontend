@@ -43,12 +43,12 @@ export default function Features() {
         <div className="text-gray-500 mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold">
             What Makes{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-pink-500 to-purple-900 font-bolder">
-              Mugivies
+            <span className="text-transparent  bg-clip-text bg-gradient-to-br from-pink-500 to-purple-900 font-bolder">
+              MUGIVIES
             </span>{" "}
             Special
           </h2>
-          <p className="text-2xl font-semibold">What Mugivies offers you</p>
+          <p className="text-xl font-semibold">What Mugivies offers you</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
