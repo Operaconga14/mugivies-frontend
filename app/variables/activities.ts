@@ -26,7 +26,15 @@ export const stats = [
 ];
 
 export const demoMessage = [
-  { title: "Hello", message: "Hello World", viewed: false },
-  { title: "Greetings", message: "Hello Opera", viewed: true },
-  { title: "Hi", message: "How are you", viewed: false },
+  { title: "Hello", message: "Hello World", viewed: false, sender: "Opera" },
+  { title: "Greetings", message: "Hello Opera", viewed: true, sender: "Conga" },
+  { title: "Hi", message: "How are you", viewed: false, sender: "Opera" },
+];
+
+export const messageColumns = [
+  { header: "Title", accessor: "title" },
+  { header: "Message", accessor: "message" },
+  { header: "Viewed", accessor: "viewed" },
+  { header: "Sender", accessor: "sender" },
+  { header: "Action", accessor: "action" },
 ];

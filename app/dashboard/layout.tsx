@@ -38,15 +38,15 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
           onNavigate={handleNavigate}
         />
       </div>
-      <div className="md:ms-0 sticky top-0 z-50 lg:ms-64">
+      <div className="md:ms-0 sticky top-0 z-1 lg:ms-64">
         <Topbar
           onMenuClick={openSidebar}
           title={"DASHBOARD"}
-          className="fixed top-0 z-50 bg-blue-500"
+          className="fixed top-0 bg-blue-500"
         />
       </div>
 
-      <main className="lg:ml-64 lg:px-1 sm:z-0">{children}</main>
+      <main className="lg:ml-64 lg:px-1">{children}</main>
     </div>
   );
 }

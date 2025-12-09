@@ -1,19 +1,45 @@
 "use client";
 import { login } from "@/app/actions/actions";
+import Alert from "@/app/ui/alert";
 import Button from "@/app/ui/button";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Login() {
   const router = useRouter();
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [alertColor, setAlertColor] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     formData.get("email");
     formData.get("password");
-    await login(formData);
-    router.push("/dashboard/overview");
+    const response = await login(formData);
+
+    if (response.message && response.message !== "Login Successful") {
+      setAlert(true);
+      setMessage(response.message);
+      setAlertColor("bg-red-500");
+      setTitle("Failed");
+      console.log(alertColor);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000);
+      return;
+    } else {
+      setAlertColor("bg-green-500");
+      setMessage(response.message);
+      setAlert(true);
+      setTitle("Success");
+      console.log(alertColor);
+      setTimeout(() => {
+        setAlert(false);
+        router.push("/dashboard/overview");
+      }, 3000);
+    }
   };
 
   return (
@@ -27,26 +53,30 @@ export default function Login() {
       <div className="relative w-full flex justify-center items-center">
         <div className="flex border px-0.5 border-transparent md:border-purple-900 shadow-md flex-col md:flex-row w-fit rounded-[15px]">
           {/* Left Side */}
-          <div className="w-full flex flex-col justify-center mb-2">
+          <div className="w-full flex flex-col justify-center p-6">
             {/* Logo */}
-            <div className="text-center mb-8">
-              <a href="/" className="inline-flex items-center space-x-2 mb-2">
-                <span className="text-4xl">🎵</span>
-                <span className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-                  Mugivies
-                </span>
-              </a>
-              <h1 className="text-3xl font-bold mt-4">Welcome Back</h1>
-              <p className="text-gray-400 mt-2">
-                Log in to continue your music journey
-              </p>
+            <div className="flex flex-col justify-center items-center gap-4">
+              <div>
+                <a href="/" className="flex items-center gap-2">
+                  <span className="text-4xl">🎵</span>
+                  <span className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+                    Mugivies
+                  </span>
+                </a>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <h1 className="text-3xl font-bold">Welcome Back</h1>
+                <p className="text-gray-400">
+                  Log in to continue your music journey
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Right Side */}
-          <div className="w-full">
+          <div className="w-full max-w-md">
             {/* Login Card */}
-            <div className="bg-gray-800/50  backdrop-blur-xl rounded-2xl border border-gray-700 p-8 shadow-2xl">
+            <div className="bg-gray-800/50  backdrop-blur-xl border border-gray-700 rounded-r-lg p-5 shadow-2xl">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Email */}
                 <div>
@@ -199,6 +229,9 @@ export default function Login() {
           </div>
         </div>
       </div>
+      {alert && (
+        <Alert className={alertColor} message={message} title={title} />
+      )}
     </div>
   );
 }

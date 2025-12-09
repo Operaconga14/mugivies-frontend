@@ -8,6 +8,7 @@ export const navigation = [
   { id: "/dashboard/profile", name: "My Profile", icon: "👤" },
   { id: "music", name: "My Music", icon: "🎵" },
   { id: "settings", name: "Settings", icon: "⚙️" },
+  { id: "support", name: "Support", icon: "📞" },
 ];
 
 export const stats = [
