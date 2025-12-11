@@ -49,7 +49,9 @@ export default function Topbar({ onMenuClick, title, className }: TopbarProps) {
                 />
               </svg>
             </button>
-            <h1 className="text-2xl font-bold text-white">{title}</h1>
+            <h1 className="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text">
+              {title}
+            </h1>
           </div>
 
           <div className="flex items-center space-x-4">

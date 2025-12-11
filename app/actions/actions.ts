@@ -21,3 +21,8 @@ export async function signup(formData: FormData) {
 
   return { message: "Signup successful", data: { fullName, email, usertype } };
 }
+
+export async function filterGigs(formData: FormData) {
+  const filter = formData.get("filter");
+  return filter;
+}

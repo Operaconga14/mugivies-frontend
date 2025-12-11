@@ -1,42 +1,6 @@
-export default function Features() {
-  const features = [
-    {
-      icon: "🎸",
-      title: "Find Your Next Gig",
-      desc: "Browse upcoming shows, auditions, and performance opportunities in your area.",
-    },
-    {
-      icon: "🤝",
-      title: "Connect with Bandmates",
-      desc: "Discover talented musicians looking to collaborate and form the perfect band.",
-    },
-    {
-      icon: "🎤",
-      title: "Share Your Music",
-      desc: "Upload and showcase your original compositions to a passionate audience.",
-    },
-    {
-      icon: "📅",
-      title: "Explore Local Scene",
-      desc: "Stay updated on concerts, jam sessions, and music events happening near you.",
-    },
-    {
-      icon: "🎹",
-      title: "Network with Artists",
-      desc: "Build meaningful connections with like-minded musicians and music lovers.",
-    },
-    {
-      icon: "⭐",
-      title: "Grow Your Career",
-      desc: "Whether you're a seasoned pro or just starting out, we've got you covered.",
-    },
-    {
-      icon: "🤖",
-      title: "AI Composer",
-      desc: "Generate original music, lyric, time-sigature, key and progresion using AI technology.",
-    },
-  ];
+import { features } from "../variables/activities";
 
+export default function Features() {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto text-center">

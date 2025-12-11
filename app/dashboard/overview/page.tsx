@@ -1,5 +1,14 @@
-import { upcomingEvents, recentGigs, stats } from "@/app/variables/nav";
+"use client";
+import { upcomingEvents, recentGigs, stats } from "@/app/variables/activities";
+import { useRouter } from "next/navigation";
 export default function Overview() {
+  const router = useRouter();
+  const formData = new FormData();
+
+  const handleRoutes = async (routes: string) => {
+    console.log("I was Clicked");
+    router.push(routes);
+  };
   return (
     <div className=" text-white">
       {/* Main Content */}
@@ -32,7 +41,10 @@ export default function Overview() {
             <div className="lg:col-span-2 bg-gray-800/50 backdrop-blur-xl border border-gray-700 rounded-xl p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold">Recent Gig Applications</h2>
-                <button className="text-purple-400 text-sm hover:text-purple-300">
+                <button
+                  onClick={() => handleRoutes("/dashboard/gigs")}
+                  className="text-purple-400 text-sm hover:text-purple-300"
+                >
                   View All
                 </button>
               </div>
@@ -110,6 +122,8 @@ export default function Overview() {
               <div className="space-y-4">
                 {upcomingEvents.map((event, index) => (
                   <div
+                    onChange={() => console.log(event.id)}
+                    onClick={() => console.log(event.id)}
                     key={index}
                     className="p-4 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-purple-500 transition"
                   >
@@ -151,7 +165,10 @@ export default function Overview() {
                   </div>
                 ))}
               </div>
-              <button className="w-full mt-4 py-2 border border-purple-500 rounded-lg text-purple-400 hover:bg-purple-500/10 transition">
+              <button
+                onClick={() => handleRoutes("/dashboard/events")}
+                className="w-full mt-4 py-2 border border-purple-500 rounded-lg text-purple-400 hover:bg-purple-500/10 transition"
+              >
                 View All Events
               </button>
             </div>
@@ -159,7 +176,10 @@ export default function Overview() {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <button className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-xl hover:from-purple-600 hover:to-pink-600 transition text-left">
+            <button
+              onClick={() => handleRoutes("/dashboard/gigs")}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-xl hover:from-purple-600 hover:to-pink-600 transition text-left"
+            >
               <div className="text-3xl mb-2">🎤</div>
               <div className="font-semibold">Find New Gigs</div>
               <div className="text-sm text-purple-100 mt-1">
