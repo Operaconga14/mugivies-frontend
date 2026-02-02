@@ -1,5 +1,4 @@
 [build]
-  # Use pnpm to build
   command = "pnpm build"
   publish = ".next"
 
@@ -7,5 +6,7 @@
   package = "@netlify/plugin-nextjs"
 
 [build.environment]
-  NODE_VERSION = "20"   # or your Node version
+  NODE_VERSION = "20"
   PNPM_HOME = "/opt/buildhome/.pnpm"
+  # Tell Netlify to ignore secrets in build output
+  SECRETS_SCAN_OMIT_PATHS = ".netlify/**,.next/**"
