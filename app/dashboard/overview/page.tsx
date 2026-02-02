@@ -1,211 +1,104 @@
 "use client";
-import { upcomingEvents, recentGigs, stats } from "@/app/variables/activities";
-import { useRouter } from "next/navigation";
-export default function Overview() {
-  const router = useRouter();
-  const formData = new FormData();
 
-  const handleRoutes = async (routes: string) => {
-    console.log("I was Clicked");
-    router.push(routes);
-  };
-  return (
-    <div className=" text-white">
-      {/* Main Content */}
-      <div className="">
-        {/* Top Header */}
+import { appliedGigs, upcomingEvents, userState } from "@/app/lib/mock-data";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar, Clock, MapPin } from "lucide-react";
+import Link from "next/link";
 
-        {/* Dashboard Content */}
-        <main className="p-4 sm:p-6 lg:p-8">
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="bg-gray-800/50 backdrop-blur-xl border border-gray-700 rounded-xl p-6 hover:border-purple-500 transition"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-400">{stat.label}</span>
-                  <div
-                    className={`w-2 h-2 rounded-full bg-${stat.color}-500`}
-                  ></div>
-                </div>
-                <div className="text-3xl font-bold mb-1">{stat.value}</div>
-                <div className="text-xs text-gray-500">{stat.change}</div>
-              </div>
-            ))}
-          </div>
+export default function OverviewPage() {
+	const userStats = userState;
+	const gigApplications = appliedGigs;
+	const upcominEvents = upcomingEvents;
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            {/* Recent Gig Applications */}
-            <div className="lg:col-span-2 bg-gray-800/50 backdrop-blur-xl border border-gray-700 rounded-xl p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold">Recent Gig Applications</h2>
-                <button
-                  onClick={() => handleRoutes("/dashboard/gigs")}
-                  className="text-purple-400 text-sm hover:text-purple-300"
-                >
-                  View All
-                </button>
-              </div>
-              <div className="space-y-4">
-                {recentGigs.map((gig, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-purple-500 transition"
-                  >
-                    <div className="flex-1 mb-3 sm:mb-0">
-                      <h3 className="font-semibold mb-1">{gig.title}</h3>
-                      <div className="flex flex-wrap gap-3 text-sm text-gray-400">
-                        <span className="flex items-center">
-                          <svg
-                            className="w-4 h-4 mr-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                          </svg>
-                          {gig.location}
-                        </span>
-                        <span className="flex items-center">
-                          <svg
-                            className="w-4 h-4 mr-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            />
-                          </svg>
-                          {gig.date}
-                        </span>
-                        <span className="text-green-400 font-semibold">
-                          {gig.pay}
-                        </span>
-                      </div>
-                    </div>
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        gig.status === "accepted"
-                          ? "bg-green-500/20 text-green-400"
-                          : gig.status === "pending"
-                          ? "bg-yellow-500/20 text-yellow-400"
-                          : "bg-blue-500/20 text-blue-400"
-                      }`}
-                    >
-                      {gig.status.charAt(0).toUpperCase() + gig.status.slice(1)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
+	return (
+		<div className="w-full px-5 py-5 text-white">
+			{/* User Stat */}
+			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+				{userStats.map((stat) => (
+					<Card key={stat.title} className="h-40 bg-gray-800/50 backdrop-blur-xl border-gray-700">
+						<CardContent>
+							<h1 className="text-gray-400 text-sm">{stat.title}</h1>
+							<p className="text-white text-4xl font-bold mt-4">{stat.value}</p>
+						</CardContent>
+					</Card>
+				))}
+			</div>
+			{/* Recent Gig Application And Upcoming Event */}
+			<div className="mt-7 flex flex-col xl:flex-row gap-4">
+				{/* Recent Gig Application */}
+				<div className="mt-4 w-full">
+					<Card className="bg-gray-800/50 border-gray-700 backdrop-blur-xl">
+						<CardHeader className="flex justify-between items-center">
+							<CardTitle className="text-white">Recent Gig Applications</CardTitle>
+							<Link className="text-purple-600 hover:text-purple-400 text-sm" href={"/dashboard/gigs"}>
+								View All
+							</Link>
+						</CardHeader>
+						<CardContent className="flex-col flex">
+							{gigApplications.map((application) => (
+								<div key={application.title} className="border-1 border-gray-700 bg-gray-900/50 md:px-6 py-4 rounded-md my-2">
+									{/* First Content */}
+									<div className="flex flex-col md:flex-row justify-between items-center">
+										<h1 className="text-white font-bold text-[18px] md:text-[22px]">{application.title}</h1>
+										<div
+											className={`mt-5 px-2 py-1 rounded-full px-4 py-1 font-semibold w-fit ${application.status === "Pending" ? "bg-yellow-500/20 text-yellow-400" : application.status === "Accepted" ? "bg-green-500/20 text-green-400" : application.status === "Applied" ? "bg-gray-500/20 text-gray-400" : application.status === "Rejected" ? "bg-red-500/20 text-red-400" : ""}`}>
+											{application.status}
+										</div>
+									</div>
+									{/* Second Content */}
+									<div className="flex flex-col md:flex-row items-center text-gray-400 gap-2 mt-2 md:mt-0">
+										<MapPin className="" size={20} />
+										<p className="text-md text-gray400">{application.location}</p>
+										<Calendar className="" size={20} />
+										<p>{application.date}</p>
+										<Clock size={20} />
+										<p>{application.time}</p>
+										<div className="text-green-400 font-semibold">${application.price}</div>
+									</div>
+								</div>
+							))}
+						</CardContent>
+					</Card>
+				</div>
 
-            {/* Upcoming Events */}
-            <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700 rounded-xl p-6">
-              <h2 className="text-xl font-bold mb-6">Upcoming Events</h2>
-              <div className="space-y-4">
-                {upcomingEvents.map((event, index) => (
-                  <div
-                    onChange={() => console.log(event.id)}
-                    onClick={() => console.log(event.id)}
-                    key={index}
-                    className="p-4 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-purple-500 transition"
-                  >
-                    <h3 className="font-semibold mb-2">{event.name}</h3>
-                    <div className="space-y-1 text-sm text-gray-400">
-                      <div className="flex items-center">
-                        <svg
-                          className="w-4 h-4 mr-2"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                        {event.date} at {event.time}
-                      </div>
-                      <div className="flex items-center">
-                        <svg
-                          className="w-4 h-4 mr-2"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                          />
-                        </svg>
-                        {event.location}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={() => handleRoutes("/dashboard/events")}
-                className="w-full mt-4 py-2 border border-purple-500 rounded-lg text-purple-400 hover:bg-purple-500/10 transition"
-              >
-                View All Events
-              </button>
-            </div>
-          </div>
-
-          {/* Quick Actions */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <button
-              onClick={() => handleRoutes("/dashboard/gigs")}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 p-6 rounded-xl hover:from-purple-600 hover:to-pink-600 transition text-left"
-            >
-              <div className="text-3xl mb-2">🎤</div>
-              <div className="font-semibold">Find New Gigs</div>
-              <div className="text-sm text-purple-100 mt-1">
-                Browse opportunities
-              </div>
-            </button>
-            <button className="bg-gray-800/50 border border-gray-700 p-6 rounded-xl hover:border-purple-500 transition text-left">
-              <div className="text-3xl mb-2">🤝</div>
-              <div className="font-semibold">Connect</div>
-              <div className="text-sm text-gray-400 mt-1">Find musicians</div>
-            </button>
-            <button className="bg-gray-800/50 border border-gray-700 p-6 rounded-xl hover:border-purple-500 transition text-left">
-              <div className="text-3xl mb-2">🎵</div>
-              <div className="font-semibold">Upload Music</div>
-              <div className="text-sm text-gray-400 mt-1">
-                Share your tracks
-              </div>
-            </button>
-            <button className="bg-gray-800/50 border border-gray-700 p-6 rounded-xl hover:border-purple-500 transition text-left">
-              <div className="text-3xl mb-2">👤</div>
-              <div className="font-semibold">Edit Profile</div>
-              <div className="text-sm text-gray-400 mt-1">Update your info</div>
-            </button>
-          </div>
-        </main>
-      </div>
-    </div>
-  );
+				{/* Upcming Event */}
+				<div className="w-full xl:w-1/2 mt-4">
+					<Card className="bg-gray-800/50 border-gray-600 text-white">
+						<CardHeader>
+							<CardTitle>Upcoming Event</CardTitle>
+						</CardHeader>
+						<CardContent className="flex flex-col">
+							{upcominEvents.map((event) => (
+								<div key={event.title} className="border-1 border-gray-700 bg-gray-900/50 px-3 md:px-6 py-4 rounded-md my-2">
+									{/* First Content */}
+									<div className="flex flex-col md:flex-row justify-between items-start">
+										<h1 className="text-white font-bold text-[16px] md:text-[22px]">{event.title}</h1>
+									</div>
+									{/* Second Content */}
+									<div className="flex flex-col mt-2 items-start text-gray-400 gap-2">
+										<div className="flex gap-2">
+											<Calendar className="" size={18} />
+											<p>{event.date}</p>
+											<Clock size={18} />
+											<p>{event.time}</p>
+										</div>
+										<div className="flex gap-2">
+											<MapPin className="" size={18} />
+											<p className="text-mdtext-gray400">{event.location}</p>
+										</div>
+									</div>
+								</div>
+							))}
+						</CardContent>
+						<CardFooter className="flex items-center justify-center">
+							{/* Content Footer */}
+							<Link className="bg-transparent border-1 border-purple-700 w-full md:w-50 h-13 rounded-md text-center flex items-center justify-center" href="/dashboard/events">
+								View All Events
+							</Link>
+						</CardFooter>
+					</Card>
+				</div>
+			</div>
+		</div>
+	);
 }

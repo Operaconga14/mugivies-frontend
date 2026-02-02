@@ -1,114 +1,141 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { TopbarProps } from "../props/topbarProps";
-import Notification from "./notification";
-import { demoMessage } from "../variables/activities";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Bell, ChevronUp, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-export default function Topbar({ onMenuClick, title, className }: TopbarProps) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
-  const [show, setShow] = useState(false);
+interface Message {
+	id: number;
+	title: string;
+	content: string;
+	time: string;
+}
 
-  useEffect(() => {
-    if (demoMessage.length > 0) {
-      setShow(true);
-    }
-    const notifiHandler = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", notifiHandler);
-    return () => document.removeEventListener("mousedown", notifiHandler);
-  });
-  return (
-    <header
-      className={`sticky top-0  z-30 bg-gray-900 border-b border-gray-700 shadow-xl ${className}`}
-    >
-      <div className="px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={onMenuClick}
-              className="lg:hidden text-gray-400 hover:text-white"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
-            <h1 className="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text">
-              {title}
-            </h1>
-          </div>
+const newMessages: Message[] = [
+	{
+		id: 1,
+		title: "Message 1",
+		content: "This is message 1 sdhdsudfdhbshhdbsbfdgofsgduhsgugdugiufgdifygidyg",
+		time: "2 hours ago",
+	},
+];
 
-          <div className="flex items-center space-x-4">
-            {/* Notifications */}
-            <button
-              onClick={() => setOpen(!open)}
-              className="relative p-2 text-gray-400 hover:text-white"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                />
-              </svg>
-              {show && (
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-              )}
-            </button>
+export default function Topbar() {
+	const [notification, setIsNotification] = useState(false);
+	const [userMenu, setUserMenu] = useState(false);
+	const [message, setMessage] = useState<Message[]>([]);
+	const newmessage = newMessages;
 
-            {/* Notification Box */}
-            {open && (
-              <div
-                ref={dropdownRef}
-                className="absolute top-12 right-20 bg-gray-900 border border-gray-700 rounded-lg shadow-lg w-64"
-              >
-                <div className="flex flex-col px-2 py-1 ">
-                  <div className="flex justify-between px-1">
-                    <h1 className="text-md text-gray-300">Notifications</h1>
-                    <button
-                      onClick={() => setOpen(false)}
-                      className="text-gray-400 hover:text-white text-xl cursor-pointer text-end"
-                    >
-                      ✗
-                    </button>
-                  </div>
-                  <div className="">
-                    <Notification />
-                  </div>
-                </div>
-              </div>
-            )}
+	const handleMessages = () => {
+		setMessage([...newmessage]);
+	};
 
-            {/* User Avatar */}
-            <div className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-600 text-lg font-bold cursor-pointer">
-              JD
-              {/* User avater or name */}
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
+	const handleLogout = () => {
+		cookieStore.delete("access_token");
+		redirect("/auth/login");
+	};
+
+	useEffect(() => {
+		handleMessages();
+	}, []);
+
+	return (
+		<div className="w-full h-16 text-white bg-gray-900 flex justify-between items-center px-3 shadow-lg border-b-[1px] border-gray-800">
+			<div className="flex items-center gap-2">
+				<SidebarTrigger />
+				<h1 className="text-lg font-semibold">Dashboard</h1>
+			</div>
+			<div className="flex items-center gap-2">
+				{/* Notification Button */}
+				<Button
+					className="text-lg font-semibold bg-transparent border-none hover:bg-transparent hover:text-gray-400"
+					onClick={() => {
+						setIsNotification(!notification);
+						setUserMenu(false);
+					}}>
+					<Bell size={40} />
+				</Button>
+				{/* User Button */}
+				<Button
+					className="text-lg font-semibold bg-transparent border-none hover:bg-transparent hover:text-gray-400"
+					onClick={() => {
+						setUserMenu(!userMenu);
+						setIsNotification(false);
+					}}>
+					<Image src="/logo.png" width={40} height={40} className="rounded-full" alt="" />
+				</Button>
+			</div>
+
+			{/* Notification Box */}
+			{notification && (
+				<div className="absolute top-16 z-50 right-22 w-100 px-5 py-2	 border-1 border-gray-700 rounded-sm bg-gray-900">
+					<div className="absolute top-[-26] right-1">
+						<ChevronUp size={40} className="text-gray-600" />
+					</div>
+					{/* Content */}
+					<div className="flex justify-between items-center py-1">
+						<h1 className="text-md">Messages</h1>
+						<X size={20} className="text-gray-400" onClick={() => setIsNotification(false)} />
+					</div>
+					<Separator className="bg-gray-700 h-1 w-full mb-2" />
+					<div className="flex justify-between items-center w-full text-center py-2">
+						{/* No Messages */}
+						{message.length <= 0 && (
+							<div className="flex justify-center items-center w-full">
+								<p className="text-gray-400">No messages</p>
+							</div>
+						)}
+
+						{message.length > 0 &&
+							newmessage.map((message, id) => (
+								<div key={id} className="flex flex-col w-full border-1 border-gray-700 px-2 py-2 rounded-sm">
+									<div className="flex justify-between">
+										<h1 className="text-md font-bold text-gray-300">{message.title}</h1>
+										<p className="text-sm text-gray-400">{message.time}</p>
+									</div>
+									<div className="text-start">
+										<p className="text-sm text-gray-400">{message.content.slice(0, 45) + (message.content.length > 45 ? "..." : "")}</p>
+									</div>
+								</div>
+							))}
+					</div>
+					{/* Load More */}
+					<div className="flex justify-center items-center w-full">
+						<Link href="/dashboard/messages" className="text-sm bg-transparent border-none hover:bg-transparent hover:text-gray-400">
+							all messages
+						</Link>
+					</div>
+				</div>
+			)}
+
+			{/* User box */}
+			{userMenu && (
+				<div className="absolute top-16 right-6 w-50 px-5 py-2	 border-1 border-gray-700 rounded-sm bg-gray-900 z-50">
+					<div className="absolute top-[-26] right-1">
+						<ChevronUp size={40} className="text-gray-600" />
+					</div>
+					{/* Content */}
+					<div className="flex justify-between items-center py-1">
+						<h1 className="text-lg">Profile</h1>
+						<X size={20} className="text-gray-400" onClick={() => setUserMenu(false)} />
+					</div>
+					<Separator className="bg-gray-700 h-1 w-full mb-2" />
+					<div className="">
+						<h1 className="text-lg font-semibold">Profile</h1>
+					</div>
+					<Separator className="bg-gray-700 h-1 w-full" />
+					<div className="flex mt-2">
+						<Button className="w-full px-1 py-2 bg-transparent border-none hover:bg-transparent hover:text-gray-400" onClick={() => handleLogout()}>
+							Logout
+						</Button>
+					</div>
+				</div>
+			)}
+		</div>
+	);
 }
