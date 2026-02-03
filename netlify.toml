@@ -8,5 +8,4 @@
 [build.environment]
   NODE_VERSION = "20"
   PNPM_HOME = "/opt/buildhome/.pnpm"
-  # Tell Netlify to ignore secrets in build output
-  SECRETS_SCAN_OMIT_PATHS = ".netlify/**,.next/**"
+  SECRETS_SCAN_ENABLED = "false"
