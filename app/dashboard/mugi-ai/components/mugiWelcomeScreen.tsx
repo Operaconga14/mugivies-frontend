@@ -30,24 +30,6 @@ const suggestions = [
 ];
 
 export default function MugiWelcomeScreen({ onPromptClick }: MugiWelcomeScreenProps) {
-	const handlePromptClick = async (prompt: string) => {
-		switch (prompt) {
-			case suggestions[0].prompt:
-				const response = await ChordProgression(suggestions[0].prompt);
-				return response?.toString();
-			case suggestions[1].prompt:
-				const response2 = await ChordProgression(suggestions[1].prompt);
-				return response2?.toString();
-			case suggestions[2].prompt:
-				const response3 = await ChordProgression(suggestions[2].prompt);
-				return response3?.toString();
-			case suggestions[3].prompt:
-				const response4 = await ChordProgression(suggestions[3].prompt);
-				return response4?.toString();
-			default:
-				return "";
-		}
-	};
 	return (
 		<div className="flex-1 flex flex-col items-center justify-center p-8 animate-fade-in">
 			<div className="relative mb-8">
@@ -68,7 +50,7 @@ export default function MugiWelcomeScreen({ onPromptClick }: MugiWelcomeScreenPr
 				{suggestions.map((suggestion, index) => (
 					<button
 						key={index}
-						onClick={() => handlePromptClick(suggestion.prompt)}
+						onClick={() => onPromptClick?.(suggestion.prompt)}
 						className="group flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-purple-900/50 to-pink-900/50 border border-gray-600 hover:border-primary/50 hover:bg-surface-hover transition-all duration-300 text-left">
 						<div className="p-2 rounded-lg bg-transparent group-hover:bg-primary/10 transition-colors">
 							<suggestion.icon className="w-5 h-5 text-white" />

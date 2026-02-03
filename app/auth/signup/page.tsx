@@ -17,8 +17,11 @@ import { signUpAction } from "@/app/actions/auth.actions";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
 import { redirect } from "next/navigation";
+import { useState } from "react";
+import Waveform from "@/app/dashboard/mugi-ai/components/waveform";
 
 export default function Signup() {
+	const [isLoading, setIsloading] = useState(false);
 	// Register Form
 	const form = useForm<z.infer<typeof signupSchema>>({
 		resolver: zodResolver(signupSchema),
@@ -33,14 +36,17 @@ export default function Signup() {
 
 	// Handle Onsubmit Form
 	const onSubmit = async (values: z.infer<typeof signupSchema>) => {
+		setIsloading(true);
 		const hashedPassword = await hashPassword(values.password);
 		values.password = hashedPassword;
 
 		const result = await signUpAction(values);
 
 		if (result.status === "error") {
+			setIsloading(false);
 			toast.error(result.message);
 		} else {
+			setIsloading(false);
 			toast.success(result.message);
 			setTimeout(() => {
 				redirect("/auth/login");
@@ -171,7 +177,7 @@ export default function Signup() {
 				</CardContent>
 				<CardFooter className="justify-center flex-col gap-8">
 					<Button className="bg-transparent border-2 w-50 h-13 border-pink-500/30 text-lg" type="submit" form="signup-form">
-						Sigup
+						{isLoading ? <Waveform className={""} hieght1={5} hieght2={8} hieght3={15} hieght4={10} hieght5={7} /> : "Signup"}
 					</Button>
 
 					<Separator className="border-1 border-pink-700/30 bg-transparent" />

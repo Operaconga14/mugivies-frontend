@@ -1,19 +1,7 @@
 import { useState, useCallback } from "react";
-// import { supabase } from "@/integrations/supabase/client";
-// import { toast } from "@/hooks/use-toast";
-
-interface Message {
-	id: string;
-	role: "user" | "assistant";
-	content: string;
-}
-
-interface Conversation {
-	id: string;
-	title: string;
-	timestamp: Date;
-	messages: Message[];
-}
+import { Conversation, Message } from "../types";
+import { suggestions } from "@/app/lib/mock-data";
+import { Arrange, ChordProgression, defaultMugiAI, Lyrics, Melody } from "@/app/actions/mugiai.actions";
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -56,40 +44,36 @@ export const useMusicChat = () => {
 			setIsLoading(true);
 
 			try {
-				// Get all messages for context (including the new user message)
-				const allMessages = [...(currentConversation?.messages || []), userMessage].map((msg) => ({
-					role: msg.role,
-					content: msg.content,
-				}));
+				let aiContent: string | "";
 
-				// const { data, error } = await supabase.functions.invoke("music-chat", {
-				// body: { messages: allMessages },
-				// });
-				//
-				// if (error) {
-				// throw new Error(error.message);
-				// }
-				//
-				// if (data.error) {
-				// throw new Error(data.error);
-				// }
-				//
-				// const aiResponse: Message = {
-				// id: generateId(),
-				// role: "assistant",
-				// content: data.content,
-				// };
-				//
-				// // // setConversations((prev) => prev.map((conv) => (conv.id === currentConversationId ? { ...conv, messages: [...conv.messages, aiResponse] } : conv)));
+				switch (content) {
+					case suggestions[0].prompt:
+						aiContent = ((await ChordProgression(content)) || "") as string;
+						break;
+					case suggestions[1].prompt:
+						aiContent = ((await Melody(content)) || "") as string;
+						break;
+					case suggestions[2].prompt:
+						aiContent = ((await Arrange(content)) || "") as string;
+						break;
+					case suggestions[3].prompt:
+						aiContent = ((await Lyrics(content)) || "") as string;
+						break;
+					default:
+						aiContent = ((await defaultMugiAI(content)) || "") as string;
+						break;
+				}
+
+				const aiResponse: Message = {
+					id: generateId(),
+					role: "assistant",
+					content: aiContent || "I apologize, but I couldn't generate a response.",
+				};
+
+				// Add AI response to conversation
+				setConversations((prev) => prev.map((conv) => (conv.id === currentConversationId ? { ...conv, messages: [...conv.messages, aiResponse] } : conv)));
 			} catch (error) {
 				console.error("Chat error:", error);
-
-				// Show toast with error message
-				// toast({
-				// title: "Error",
-				// // description: error instanceof Error ? error.message : "Failed to get AI response",
-				// variant: "destructive",
-				// });
 
 				// Add error message to chat
 				const errorMessage: Message = {

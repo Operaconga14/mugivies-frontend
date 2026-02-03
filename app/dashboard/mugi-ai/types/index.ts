@@ -38,3 +38,16 @@ export interface MugiSidebarProps {
 	isCollapsed: boolean;
 	onToggleCollapse: () => void;
 }
+
+export interface Message {
+	id: string;
+	role: "user" | "assistant";
+	content: string;
+}
+
+export interface Conversation {
+	id: string;
+	title: string;
+	timestamp: Date;
+	messages: Message[];
+}

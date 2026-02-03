@@ -13,8 +13,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { MusicIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import { useState } from "react";
+import Waveform from "@/app/dashboard/mugi-ai/components/waveform";
 
 export default function Login() {
+	const [isLoading, setisloading] = useState(false);
+
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
 		defaultValues: {
@@ -24,11 +28,14 @@ export default function Login() {
 	});
 	// Handle Onsubmit Form
 	const onSubmit = async (values: z.infer<typeof loginSchema>) => {
+		setisloading(true);
 		const result = await loginAction(values);
 
 		if (result.status === "error") {
+			setisloading(false);
 			toast.error(result.message);
 		} else {
+			setisloading(false);
 			toast.success(result.message);
 			setTimeout(() => {
 				redirect("/dashboard/overview");
@@ -93,7 +100,7 @@ export default function Login() {
 				</CardContent>
 				<CardFooter className="justify-center flex-col gap-8">
 					<Button className="bg-transparent border-2 w-50 h-13 border-pink-500/30 text-lg" type="submit" form="login-form">
-						Login
+						{isLoading ? <Waveform className={""} hieght1={5} hieght2={8} hieght3={15} hieght4={10} hieght5={7} /> : "Login"}
 					</Button>
 					<Separator className="border-1 border-pink-700/30 bg-transparent" />
 					<div className="flex gap-2">

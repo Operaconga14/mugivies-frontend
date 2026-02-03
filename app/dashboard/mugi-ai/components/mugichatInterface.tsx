@@ -107,7 +107,7 @@ export default function MugiChatInterface() {
 				</div>
 
 				{/* Input Area */}
-				<MugiChatInput onSendMessage={() => {}} />
+				<MugiChatInput onSendMessage={handleSend} disabled={isLoading} />
 			</div>
 		</div>
 	);
