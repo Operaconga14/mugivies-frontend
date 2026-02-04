@@ -1,4 +1,5 @@
 "use server";
+import { toast } from "sonner";
 import { chordProgressionSysPrompt, defaultMugiSystemPrompt, lyricsSystemPrompt, melodySystemPrompt, songArrangmentSystemPrompt } from "../lib/mock-data";
 import client from "../lib/mugi.ai";
 
@@ -22,12 +23,9 @@ export async function ChordProgression(prompt: string) {
 			stream: false,
 		});
 		const aiResponse = response.choices[0].message.content;
-		// console.log(aiResponse);
 		return aiResponse;
 	} catch (error) {
-		return error;
-		// console.error("Groq API Error:", error);
-		// throw new Error(`Failed to generate chord progression: ${error}`);
+		throw new Error(String(error));
 	}
 }
 
@@ -51,12 +49,9 @@ export async function Melody(prompt: string) {
 			stream: false,
 		});
 		const aiResponse = response.choices[0].message.content;
-		// console.log(aiResponse);
 		return aiResponse;
 	} catch (error) {
-		// console.error("Groq API Error:", error);
-		// throw new Error(`Failed to generate chord progression: ${error}`);
-		return error;
+		throw new Error(String(error));
 	}
 }
 
@@ -80,12 +75,9 @@ export async function Arrange(prompt: string) {
 			stream: false,
 		});
 		const aiResponse = response.choices[0].message.content;
-		// console.log(aiResponse);
 		return aiResponse;
 	} catch (error) {
-		// console.error("Groq API Error:", error);
-		// throw new Error(`Failed to generate chord progression: ${error}`);
-		return error;
+		throw new Error(String(error));
 	}
 }
 
@@ -109,12 +101,9 @@ export async function Lyrics(prompt: string) {
 			stream: false,
 		});
 		const aiResponse = response.choices[0].message.content;
-		// console.log(aiResponse);
 		return aiResponse;
 	} catch (error) {
-		// console.error("Groq API Error:", error);
-		// throw new Error(`Failed to generate chord progression: ${error}`);
-		return error;
+		throw new Error(String(error));
 	}
 }
 
@@ -138,11 +127,8 @@ export async function defaultMugiAI(prompt: string) {
 			stream: false,
 		});
 		const aiResponse = response.choices[0].message.content;
-		// console.log(aiResponse);
 		return aiResponse;
 	} catch (error) {
-		return;
-		// console.error("Groq API Error:", error);
-		// throw new Error(`Failed to generate chord progression: ${error}`);
+		throw new Error(String(error));
 	}
 }

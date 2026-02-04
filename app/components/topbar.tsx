@@ -73,8 +73,8 @@ export default function Topbar() {
 
 			{/* Notification Box */}
 			{notification && (
-				<div className="absolute top-16 z-50 right-22 w-100 px-5 py-2	 border-1 border-gray-700 rounded-sm bg-gray-900">
-					<div className="absolute top-[-26] right-1">
+				<div className="absolute top-16 z-50 right-0 w-full md:w-100 md:right-22 px-5 py-2	 border-1 border-gray-700 rounded-sm bg-gray-900">
+					<div className="absolute top-[-26] right-23 md:right-1">
 						<ChevronUp size={40} className="text-gray-600" />
 					</div>
 					{/* Content */}

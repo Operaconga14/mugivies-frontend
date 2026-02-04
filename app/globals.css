@@ -122,6 +122,26 @@
 	}
 }
 
+@keyframes typewriter {
+	0% {
+		opacity: 0;
+		width: 0;
+	}
+	100% {
+		opacity: 1;
+		width: 100%;
+	}
+}
+
+.animate-typewriter {
+	overflow: hidden;
+	animation: typewriter 2s steps(50, end);
+	/* animation-name: typewriter; */
+	/* animation-duration: 0.9s; */
+	/* animation-iteration-count: 1; */
+	/* animation-timing-function: ease-in-out; */
+}
+
 @keyframes wave {
 	0%,
 	100% {

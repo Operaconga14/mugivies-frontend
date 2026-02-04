@@ -1,11 +1,35 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { MugiMessageProps } from "../types";
 import { Music, Sparkles, User } from "lucide-react";
 import Waveform from "./waveform";
 import ReactMarkdown from "react-markdown";
+import { useEffect, useState } from "react";
 
 export default function MugiChatMessage({ content, role, isLoading }: MugiMessageProps) {
 	const isUser = role === "user";
+
+	// ADD THESE LINES
+	const [displayedContent, setDisplayedContent] = useState("");
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	useEffect(() => {
+		if (!isUser && !isLoading && currentIndex < content!.length) {
+			const timeout = setTimeout(() => {
+				setDisplayedContent((prev) => prev + content![currentIndex]);
+				setCurrentIndex((prev) => prev + 1);
+			}, 1); // Speed: lower = faster
+
+			return () => clearTimeout(timeout);
+		}
+	}, [currentIndex, content, isUser, isLoading]);
+
+	useEffect(() => {
+		// Reset when content changes
+		setDisplayedContent("");
+		setCurrentIndex(0);
+	}, [content]);
+	// END OF ADDITION
 
 	return (
 		<div className={cn("flex gap-4 px-4 py-6 animate-fade-in", isUser ? "bg-message-user" : "bg-message-ai")}>
@@ -17,7 +41,7 @@ export default function MugiChatMessage({ content, role, isLoading }: MugiMessag
 
 			<div className="flex-1 min-w-0">
 				<div className="flex items-center gap-2 mb-1">
-					<span className="font-medium text-sm">{isUser ? "You" : "Composer AI"}</span>
+					<span className="font-medium text-sm">{isUser ? "You" : "Mugi AI"}</span>
 					{!isUser && <Sparkles className="w-3 h-3 text-gray-300" />}
 				</div>
 				{isLoading ? (
@@ -26,7 +50,7 @@ export default function MugiChatMessage({ content, role, isLoading }: MugiMessag
 						<span className="text-sm">Composing...</span>
 					</div>
 				) : isUser ? (
-					<div className="text-gray-300 whitespace-pre-wrap leading-relaxed">{content}</div>
+					<div className="text-gray-300 whitespace-pre-wrap leading-relaxed ">{content}</div>
 				) : (
 					<div className="prose prose-sm prose-invert max-w-none text-gray-300 leading-relaxed">
 						<ReactMarkdown
@@ -42,7 +66,7 @@ export default function MugiChatMessage({ content, role, isLoading }: MugiMessag
 								code: ({ children }) => <code className="bg-secondary/50 px-1.5 py-0.5 rounded text-gray-300 font-mono text-sm">{children}</code>,
 								pre: ({ children }) => <pre className="bg-secondary/30 p-3 rounded-lg overflow-x-auto mb-3">{children}</pre>,
 							}}>
-							{content}
+							{displayedContent}
 						</ReactMarkdown>
 					</div>
 				)}
