@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { MusicIcon } from "lucide-react";
+import { ChevronLeft, MusicIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import Waveform from "@/app/dashboard/mugi-ai/components/waveform";
@@ -53,6 +53,7 @@ export default function Login() {
 							<p className="text-md font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">MUGIVIES</p>
 						</div>
 						<h1 className="text-3xl font-bold text-white">Login</h1>
+						<Link href={"/"} className="flex items-center text-xs gap-1 text-purple-900 hover:text-purple-500 mt-2"><ChevronLeft className="size-4 text-gray-500" />Home</Link>
 					</div>
 					{/* Form Content */}
 					<Form {...form}>

@@ -5,8 +5,14 @@ import Link from "next/link";
 import { MusicIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function AppSidebar() {
+	const [open, setOpen] = useState(false);
+
+	const handleCloseSidebar = () => {
+		setOpen(false);
+	}
 	return (
 		<Sidebar className="bg-gray-900 border-gray-700">
 			<SidebarHeader className="bg-gray-900 h-17">
@@ -24,7 +30,7 @@ export default function AppSidebar() {
 							<SidebarMenuButton
 								className="h-16 flex text-white bg-transparent hover:bg-gray-700/30 hover:text-white text-md md:text-xl focus:bg-gradient-to-r focus:from-purple-900 focus:to-pink-900 focus:text-white"
 								asChild>
-								<Link href={item.url}>
+								<Link href={item.url} onClick={handleCloseSidebar}>
 									{item.icon}
 									<span>{item.title}</span>
 								</Link>

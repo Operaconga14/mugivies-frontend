@@ -79,7 +79,14 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
 
 		const token = generateToken(user);
 
-		(await cookies()).set("access_token", token);
+		(await cookies()).set({
+			name: "access_token",
+			value: token,
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production",
+			sameSite: "strict",
+			maxAge: 60 * 60 * 24 * 7,
+		});
 
 		return {
 			status: "success",

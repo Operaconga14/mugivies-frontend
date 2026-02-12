@@ -1,6 +1,6 @@
 "use client";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { MusicIcon } from "lucide-react";
+import { ChevronLeft, MusicIcon } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { signupSchema } from "@/app/lib/formSchema";
@@ -65,6 +65,7 @@ export default function Signup() {
 							<p className="text-md font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">MUGIVIES</p>
 						</div>
 						<h1 className="text-3xl font-bold text-white">Sign Up</h1>
+						<Link href={"/"} className="flex items-center text-xs gap-1 text-purple-900 hover:text-purple-500 mt-2"><ChevronLeft className="size-4 text-gray-500" />Home</Link>
 					</div>
 					{/* Form Content */}
 					<Form {...form}>

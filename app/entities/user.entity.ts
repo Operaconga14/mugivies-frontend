@@ -73,6 +73,9 @@ export class User {
 	@Column({ type: "text", nullable: true })
 	location!: string;
 
+	@Column({ type: "text", nullable: true })
+	country!: string;
+
 	@Column({
 		type: "enum",
 		enum: SubscriptionType,

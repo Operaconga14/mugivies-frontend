@@ -11,7 +11,7 @@ export default function Header() {
 	useEffect(() => {
 		const token = cookieStore.get("access_token");
 		token.then((token) => {
-			sethasToken(!!token?.value);
+			sethasToken(!token?.value);
 		});
 	});
 
@@ -60,7 +60,7 @@ export default function Header() {
 				<div className="flex">
 					<Link
 						className="hidden md:flex bg-gradient-to-r text-gray-300 from-purple-500 to-pink-500 px-4 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition font-bold text-lg"
-						href={hasToken ? "/dashboard/overview" : "auth/signup"}>
+						href={hasToken ? "/dashboard/overview" : "auth/login"}>
 						{hasToken ? "Dashboard" : "Get Started"}
 					</Link>
 				</div>
@@ -106,7 +106,7 @@ export default function Header() {
 					<div>
 						<Link
 							className="bg-gradient-to-r text-gray-300 from-purple-500 to-pink-500 px-4 py-2 rounded-full hover:from-purple-600 hover:to-pink-600 transition font-bold text-md"
-							href={hasToken ? "/dashboard/overview" : "auth/signup"}>
+							href={hasToken ? "/dashboard/overview" : "auth/login"}>
 							{hasToken ? "Dashboard" : "Get Started"}
 						</Link>
 					</div>

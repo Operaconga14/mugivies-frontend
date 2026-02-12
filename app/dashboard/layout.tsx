@@ -10,9 +10,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 			<AppSidebar />
 			<main className="w-full bg-gray-900">
 				<Topbar />
-
 				<div className="">{children}</div>
-				<Toaster richColors position="top-right" closeButton />
 			</main>
 		</SidebarProvider>
 	);

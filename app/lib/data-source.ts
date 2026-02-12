@@ -10,7 +10,7 @@ export const AppDataSource = async () => {
 	}
 	dataSource = new DataSource({
 		type: "postgres",
-		host: process.env.DB_HOST,
+		host: String(process.env.DB_HOST),
 		port: Number(process.env.DB_PORT),
 		username: process.env.DB_USER,
 		password: process.env.DB_PASSWORD,
@@ -18,8 +18,8 @@ export const AppDataSource = async () => {
 		entities: [User],
 		migrations: [],
 		subscribers: [],
-		logging: false,
-		synchronize: false,
+		logging: true,
+		synchronize: true,
 		ssl: {
 			rejectUnauthorized: false,
 		},

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { logOut } from "../actions/user.actions";
 
 interface Message {
 	id: number;
@@ -35,8 +36,8 @@ export default function Topbar() {
 		setMessage([...newmessage]);
 	};
 
-	const handleLogout = () => {
-		cookieStore.delete("access_token");
+	const handleLogout = async () => {
+		await logOut();
 		redirect("/auth/login");
 	};
 
