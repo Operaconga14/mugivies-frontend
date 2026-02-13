@@ -12,12 +12,13 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft, MusicIcon } from "lucide-react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import Waveform from "@/app/dashboard/mugi-ai/components/waveform";
 
 export default function Login() {
 	const [isLoading, setisloading] = useState(false);
+	const router = useRouter()
 
 	const form = useForm<z.infer<typeof loginSchema>>({
 		resolver: zodResolver(loginSchema),
@@ -37,8 +38,9 @@ export default function Login() {
 		} else {
 			setisloading(false);
 			toast.success(result.message);
+			sessionStorage.setItem("access_token", result.token || "");
 			setTimeout(() => {
-				redirect("/dashboard/overview");
+				router.push("/dashboard/overview");
 			}, 3000);
 		}
 	};

@@ -9,11 +9,11 @@ export default function Header() {
 	const [hasToken, sethasToken] = useState(false);
 
 	useEffect(() => {
-		const token = cookieStore.get("access_token");
-		token.then((token) => {
-			sethasToken(!token?.value);
-		});
-	});
+		const token = sessionStorage.getItem("access_token");
+		if (token) {
+			sethasToken(true);
+		}
+	}, []);
 
 	return (
 		<nav className="text-white w-full h-18 bg-black/80 fixed backdrop-blur-md z-50 border-b border-pink-500/30 justify-between">

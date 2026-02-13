@@ -66,26 +66,31 @@ export default function Profile() {
         <div className={"px-2 pt-5 min-h-screen pb-5 overflow-y-auto"}>
             {/* Name, image etc */}
             <div className="flex items-center gap-3 flex-col md:flex-row">
-                <div>
-                    <Button className="text-gray-400 text-xs mt-2 bg-transparent absolute top-33 right-120 hover:bg-transparent hover:text-gray-400"><PencilLineIcon className="text-gray-400" size={5} /></Button>
+                <div className="flex">
                     {user?.picture ? (
                         <Image src={user?.picture} width={100} height={100} alt="" />
                     ) : (
                         <div className="rounded-full bg-gray-700/10 font-bold text-white text-5xl border w-24 h-24 flex items-center justify-center border-purple-700">{user?.name.split(" ")[0].charAt(0).toUpperCase()}{user?.name.split(" ")[1].charAt(0).toUpperCase()}</div>
                     )}
+                    <Button className="relative top-18 right-7 bg-purple-900 hover:bg-purple-900/20 hover:text-gray-400 rounded-full w-6 h-6"><PencilLineIcon className="w-5 h-5 text-gray-300" /></Button>
                 </div>
-                <div className="flex flex-col items-center justify-center md:items-start md:justify-stat">
-                    <div className="fixed top-[-30px] right-[-150px]">
-                        <Button className="text-gray-400 text-xs mt-2 bg-transparent absolute top-33 right-120 hover:bg-transparent hover:text-gray-400"><PencilLineIcon className="text-gray-400" size={15} /></Button>
-                    </div>
+                <div className="flex items-center justify-center md:items-start md:justify-stat">
+
                     {/* TODO: Add location and country */}
-                    <h1 className="text-white text-2xl font-bold mt-3">{user?.name}</h1>
-                    <div className="flex gap-2">
-                        <p className="text-gray-400 text-xs">{user?.username}username</p>
-                        <p className="text-gray-400 text-xs">{user?.role}</p>
+                    <div className="flex-col flex">
+                        <h1 className="text-white text-2xl font-bold mt-3">{user?.name}</h1>
+                        <div className="flex gap-2">
+                            <p className="text-gray-400 text-xs">{user?.username}username</p>
+                            <p className="text-gray-400 text-xs">{user?.role}</p>
+                        </div>
+                        <p className="text-gray-400 text-xs">{user?.location}{user?.country ? `, ${user?.country}` : ""}country</p>
+                        {user?.role === "musician" ? <p className="text-gray-400 text-xs">{user?.genre} Jazz</p> : null}
                     </div>
-                    <p className="text-gray-400 text-xs">{user?.location}{user?.country ? `, ${user?.country}` : ""}country</p>
-                    {user?.role === "musician" ? <p className="text-gray-400 text-xs">{user?.genre} Jazz</p> : null}
+
+                    <div >
+                        <Button className="bg-transparent relative top-[-30px] md:top-0 right-3 hover:bg-transparent hover:text-gray-400"><PencilLineIcon className="w-5 h-5 text-gray-500" /></Button>
+                    </div>
+
                 </div>
 
             </div>
@@ -162,7 +167,7 @@ export default function Profile() {
 
 
             {/* Adding or Editing Box */}
-            <div className="text-white z-50 fixed top-50 md:top-1/2 md:left-1/2 transform md:-translate-x-1/5 md:-translate-y-1/2 bg-gray-800 w-76 md:w-96 h-fit px-2 rounded-md backdrop-blur-sm">
+            <div className="text-white z-50 absolute top-50 md:top-1/2 md:left-1/2 transform md:-translate-x-1/5 md:-translate-y-1/2 bg-gray-800 w-76 md:w-96 h-fit px-2 rounded-md backdrop-blur-sm">
                 {/* Show Profile Add */}
                 {/* Show Social Add */}
                 {showSocialAdd ? <SocialAdd handleClose={() => setShowSocialAdd(false)} /> : null}

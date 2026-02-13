@@ -38,6 +38,7 @@ export default function Topbar() {
 
 	const handleLogout = async () => {
 		await logOut();
+		sessionStorage.removeItem("access_token");
 		redirect("/auth/login");
 	};
 

@@ -79,18 +79,19 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
 
 		const token = generateToken(user);
 
-		(await cookies()).set({
-			name: "access_token",
-			value: token,
+		const cookieStore = await cookies();
+		cookieStore.set('access_token', token, {
 			httpOnly: true,
-			secure: process.env.NODE_ENV === "production",
-			sameSite: "strict",
+			secure: process.env.NODE_ENV === 'production',
+			sameSite: 'lax',
 			maxAge: 60 * 60 * 24 * 7,
+			path: '/',
 		});
 
 		return {
 			status: "success",
 			message: `User Login successfully`,
+			token: token
 		};
 	} catch (error) {
 		return {
